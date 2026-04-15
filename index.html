@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
   <title>عارض الهوية · تلوين احترافي + معرض بانورامي</title>
+  <!-- Favicon - أيقونة مصغرة للموقع عند المشاركة -->
+  <link rel="icon" type="image/png" href="owhats.png">
+  <link rel="apple-touch-icon" href="owhats.png">
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 (أيقونات متجهية احترافية) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- html2canvas لتصدير الصور -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -31,8 +36,8 @@
     }
 
     .section-title {
-      font-size: 2.6rem;
-      margin-bottom: 2rem;
+      font-size: 2.4rem;
+      margin-bottom: 1.8rem;
       position: relative;
       display: inline-block;
       padding-bottom: 0.4rem;
@@ -51,11 +56,11 @@
     .container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 24px;
+      padding: 0 20px;
     }
 
     section {
-      padding: 70px 0;
+      padding: 60px 0;
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     }
 
@@ -75,15 +80,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 24px;
+      padding: 35px 20px;
       background: #ffffff;
-      border-radius: 56px;
-      box-shadow: 0 35px 55px -25px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(184, 148, 94, 0.15);
+      border-radius: 48px;
+      box-shadow: 0 30px 45px -20px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(184, 148, 94, 0.1);
     }
 
     .main-logo-display {
-      margin-bottom: 35px;
-      max-width: 420px;
+      margin-bottom: 30px;
+      max-width: 380px;
       width: 100%;
       text-align: center;
     }
@@ -91,20 +96,20 @@
     .main-logo-display img {
       width: 100%;
       height: auto;
-      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.12));
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
     }
 
     .logo-selector {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 16px;
     }
 
     .logo-thumb {
-      width: 85px;
-      height: 85px;
-      border-radius: 24px;
+      width: 75px;
+      height: 75px;
+      border-radius: 20px;
       background: #f3efe9;
       display: flex;
       align-items: center;
@@ -112,16 +117,16 @@
       cursor: pointer;
       border: 2px solid transparent;
       transition: all 0.25s;
-      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
       overflow: hidden;
-      padding: 12px;
+      padding: 10px;
     }
 
     .logo-thumb.active {
       border-color: #b8945e;
-      transform: scale(1.05);
+      transform: scale(1.03);
       background: #fff;
-      box-shadow: 0 12px 22px rgba(184, 148, 94, 0.25);
+      box-shadow: 0 10px 18px rgba(184, 148, 94, 0.2);
     }
 
     .logo-thumb img {
@@ -130,246 +135,267 @@
       object-fit: contain;
     }
 
-    /* خلفيات ملونة (القسم الخاص بخلفيات الشعار الكامل) */
+    /* خلفيات ملونة */
     .color-demo-card {
       background: #ffffff;
-      border-radius: 42px;
-      padding: 36px 24px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      border-radius: 36px;
+      padding: 30px 20px;
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.08);
     }
 
     .logo-preview-box {
       background-color: #0f1937;
-      border-radius: 36px;
-      padding: 50px 20px;
-      margin-bottom: 35px;
+      border-radius: 32px;
+      padding: 40px 15px;
+      margin-bottom: 30px;
       display: flex;
       justify-content: center;
       transition: background-color 0.35s;
     }
 
     .preview-logo {
-      max-width: 400px;
+      max-width: 320px;
       width: 85%;
-      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.2));
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
     }
 
     .color-palette {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     .color-btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 60px;
-      border: 3px solid white;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50px;
+      border: 2px solid white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       transition: all 0.2s;
     }
 
     .color-btn.active {
       outline: 3px solid #b8945e;
-      outline-offset: 4px;
+      outline-offset: 3px;
     }
 
     .custom-color-picker {
       display: flex;
       justify-content: center;
-      margin-top: 12px;
+      margin-top: 10px;
     }
 
-    /* === قسم تخصيص لون الشعار logo2.png === */
+    /* قسم تخصيص الشعار الرئيسي (محسن للجوال) */
     .logo-colorizer {
       background: #ffffff;
-      border-radius: 48px;
-      padding: 40px 32px;
-      box-shadow: 0 28px 48px -18px rgba(0, 0, 0, 0.12);
+      border-radius: 40px;
+      padding: 28px 20px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
     }
 
     .colorizer-preview {
       background: #f3efea;
-      border-radius: 48px;
-      padding: 48px 20px;
-      margin-bottom: 40px;
+      border-radius: 36px;
+      padding: 35px 15px;
+      margin-bottom: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: background-color 0.3s;
       border: 1px solid #e2dcd2;
+      overflow: hidden;
     }
 
     .dynamic-logo {
-      max-width: 480px;
-      width: 90%;
-      filter: drop-shadow(0 20px 25px -12px rgba(0, 0, 0, 0.2));
+      max-width: 100%;
+      height: auto;
       transition: all 0.2s ease;
+      filter: drop-shadow(0 15px 20px -10px rgba(0, 0, 0, 0.2));
+      transform-origin: center;
     }
 
     .controls-panel {
       display: flex;
       flex-direction: column;
-      gap: 32px;
+      gap: 24px;
     }
 
+    /* تبويبات منسدلة أو مجموعات منظمة */
     .control-group {
       background: #faf7f2;
-      border-radius: 32px;
-      padding: 22px 28px;
+      border-radius: 28px;
+      padding: 18px 20px;
     }
 
-    .control-label {
-      font-weight: 600;
-      font-size: 1.2rem;
-      margin-bottom: 16px;
+    .control-header {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
       border-right: 3px solid #b8945e;
       padding-right: 12px;
     }
 
-    .control-label i {
-      font-size: 1.3rem;
+    .control-header i {
       color: #b8945e;
+      font-size: 1.2rem;
     }
 
     .slider-container {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 14px;
     }
 
     .slider-row {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .slider-row span:first-child {
-      width: 90px;
-      font-weight: 500;
+    .slider-row .label-icon {
+      width: 85px;
       display: flex;
       align-items: center;
       gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 500;
     }
 
-    .slider-row span:first-child i {
+    .slider-row .label-icon i {
       width: 20px;
       color: #b8945e;
     }
 
     input[type="range"] {
       flex: 1;
-      min-width: 180px;
+      min-width: 140px;
       accent-color: #b8945e;
     }
 
     .value-display {
-      min-width: 55px;
+      min-width: 50px;
       background: #e9e2d8;
-      padding: 4px 12px;
-      border-radius: 40px;
+      padding: 3px 10px;
+      border-radius: 30px;
       text-align: center;
       font-family: monospace;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
 
+    /* أزرار الألوان الجاهزة */
     .preset-buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 20px;
+      gap: 10px;
+      margin: 15px 0 5px;
     }
 
     .preset-btn {
       background: #e9e2d8;
       border: none;
-      padding: 8px 20px;
+      padding: 6px 14px;
       border-radius: 40px;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .preset-btn i {
-      font-size: 0.9rem;
+      font-size: 0.75rem;
     }
 
     .preset-btn:hover {
       background: #b8945e;
       color: white;
+      transform: translateY(-1px);
+    }
+
+    /* خلفيات المعاينة */
+    .bg-preview-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      margin: 12px 0;
+    }
+
+    .bg-color-box {
+      width: 45px;
+      height: 45px;
+      border-radius: 16px;
+      border: 2px solid white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    /* أزرار المزايا */
+    .feature-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 10px;
+      justify-content: center;
+    }
+
+    .feature-btn {
+      background: #e9e2d8;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+
+    .feature-btn i {
+      font-size: 0.9rem;
+    }
+
+    .feature-btn:hover {
+      background: #b8945e;
+      color: white;
       transform: translateY(-2px);
+    }
+
+    .feature-btn.primary {
+      background: #b8945e;
+      color: white;
     }
 
     .reset-btn {
       background: transparent;
       border: 1.5px solid #b8945e;
-      padding: 8px 28px;
-      border-radius: 40px;
+      padding: 8px 18px;
+      border-radius: 50px;
       font-weight: 600;
       cursor: pointer;
       transition: 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 8px;
+      font-size: 0.85rem;
     }
 
-    .reset-btn:hover {
-      background: #b8945e20;
-    }
-
-    .bg-preview-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 15px;
-    }
-
-    .bg-color-box {
-      width: 50px;
-      height: 50px;
-      border-radius: 20px;
-      border: 2px solid white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      cursor: pointer;
-    }
-
-    .advanced-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 28px;
-      justify-content: space-between;
-      margin-top: 8px;
-    }
-
-    .advanced-row label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    /* ========== معرض MOCKUPS: عرض عمودي بدون نصوص ========== */
+    /* معرض Mockups عمودي */
     .mockup-showcase {
       background: #0a0a0a;
       padding: 0;
       margin: 0;
-    }
-
-    .fullwidth-mockup {
-      width: 100%;
     }
 
     .vertical-mockup-stack {
@@ -387,7 +413,6 @@
       opacity: 0;
       transform: translateY(40px) scale(0.98);
       transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.2), transform 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.2);
-      will-change: transform, opacity;
     }
 
     .mockup-hero-item.visible-mockup {
@@ -400,44 +425,53 @@
       height: auto;
       display: block;
       transition: transform 0.5s ease;
-      will-change: transform;
     }
 
-    .mockup-hero-item.reveal img {
-      transform: scale(1.01);
-    }
-
-    /* تحسين الهواتف */
-    @media (max-width: 750px) {
+    /* تحسينات الهواتف */
+    @media (max-width: 640px) {
       .container {
-        padding: 0 18px;
+        padding: 0 16px;
+      }
+      section {
+        padding: 45px 0;
       }
       .section-title {
-        font-size: 2rem;
+        font-size: 1.9rem;
       }
       .logo-colorizer {
-        padding: 24px 16px;
+        padding: 20px 14px;
       }
       .control-group {
-        padding: 18px;
+        padding: 14px 16px;
+      }
+      .slider-row .label-icon {
+        width: 100%;
+        margin-bottom: 4px;
       }
       .slider-row {
-        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: stretch;
       }
-      .slider-row span:first-child {
+      input[type="range"] {
         width: 100%;
-      }
-      .dynamic-logo {
-        width: 95%;
       }
       .preset-buttons {
         justify-content: center;
       }
+      .feature-buttons {
+        justify-content: center;
+      }
+      .bg-preview-row {
+        justify-content: center;
+      }
+      .colorizer-preview {
+        padding: 25px 10px;
+      }
     }
 
-    @media (min-width: 900px) {
+    @media (min-width: 768px) {
       .dynamic-logo {
-        max-width: 550px;
+        max-width: 480px;
       }
     }
   </style>
@@ -482,58 +516,80 @@
     </div>
   </section>
 
-  <!-- تخصيص لون الشعار logo2.png (بدون إيموجي، بأيقونات) -->
+  <!-- تخصيص الشعار (بدون كلمة logo2.png في العنوان) -->
   <section>
     <div class="container">
-      <h2 class="section-title fade-on-scroll"><i class="fas fa-palette" style="margin-left: 10px;"></i> تخصيص لون الشعار · logo2.png</h2>
+      <h2 class="section-title fade-on-scroll"><i class="fas fa-palette" style="margin-left: 8px;"></i> تخصيص الألوان والتأثيرات</h2>
       <div class="logo-colorizer fade-on-scroll">
         <div class="colorizer-preview" id="colorizerPreviewArea">
-          <img src="logo2.png" alt="شعار قابل للتلوين" class="dynamic-logo" id="colorizableLogo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'150\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%23d9cdbc\'/%3E%3Ctext x=\'200\' y=\'85\' text-anchor=\'middle\' fill=\'%233d2b1a\' font-size=\'28\'%3Elogo2.png%3C/text%3E%3C/svg%3E'">
+          <img src="logo2.png" alt="شعار قابل للتخصيص" class="dynamic-logo" id="colorizableLogo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'150\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%23d9cdbc\'/%3E%3Ctext x=\'200\' y=\'85\' text-anchor=\'middle\' fill=\'%233d2b1a\' font-size=\'28\'%3Eالشعار%3C/text%3E%3C/svg%3E'">
         </div>
         
         <div class="controls-panel">
+          <!-- مجموعة الألوان الأساسية -->
           <div class="control-group">
-            <div class="control-label">
+            <div class="control-header">
               <i class="fas fa-fill-drip"></i>
-              <span>تعديل اللون</span>
+              <span>ضبط الألوان</span>
             </div>
             <div class="slider-container">
               <div class="slider-row">
-                <span><i class="fas fa-sync-alt"></i> درجة اللون</span>
+                <span class="label-icon"><i class="fas fa-sync-alt"></i> درجة اللون</span>
                 <input type="range" id="hueSlider" min="0" max="360" value="0" step="1">
                 <span class="value-display" id="hueValue">0°</span>
               </div>
               <div class="slider-row">
-                <span><i class="fas fa-chart-line"></i> التشبع</span>
+                <span class="label-icon"><i class="fas fa-chart-line"></i> التشبع</span>
                 <input type="range" id="satSlider" min="0" max="200" value="100" step="1">
                 <span class="value-display" id="satValue">100%</span>
               </div>
               <div class="slider-row">
-                <span><i class="fas fa-sun"></i> السطوع</span>
+                <span class="label-icon"><i class="fas fa-sun"></i> السطوع</span>
                 <input type="range" id="brightSlider" min="40" max="180" value="100" step="1">
                 <span class="value-display" id="brightValue">100%</span>
               </div>
               <div class="slider-row">
-                <span><i class="fas fa-adjust"></i> التباين</span>
+                <span class="label-icon"><i class="fas fa-adjust"></i> التباين</span>
                 <input type="range" id="contrastSlider" min="50" max="200" value="100" step="1">
                 <span class="value-display" id="contrastValue">100%</span>
               </div>
             </div>
             <div class="preset-buttons">
-              <button class="preset-btn" data-preset="reset"><i class="fas fa-undo-alt"></i> إعادة تعيين</button>
+              <button class="preset-btn" data-preset="reset"><i class="fas fa-undo-alt"></i> إعادة</button>
               <button class="preset-btn" data-preset="gold"><i class="fas fa-crown"></i> ذهبي</button>
-              <button class="preset-btn" data-preset="blue"><i class="fas fa-water"></i> أزرق فاتح</button>
-              <button class="preset-btn" data-preset="crimson"><i class="fas fa-heart"></i> أحمر عميق</button>
-              <button class="preset-btn" data-preset="green"><i class="fas fa-leaf"></i> أخضر زمردي</button>
+              <button class="preset-btn" data-preset="blue"><i class="fas fa-water"></i> أزرق</button>
+              <button class="preset-btn" data-preset="crimson"><i class="fas fa-heart"></i> أحمر</button>
+              <button class="preset-btn" data-preset="green"><i class="fas fa-leaf"></i> أخضر</button>
               <button class="preset-btn" data-preset="purple"><i class="fas fa-gem"></i> بنفسجي</button>
-              <button class="preset-btn" data-preset="mono"><i class="fas fa-circle-notch"></i> تدرج رمادي</button>
+              <button class="preset-btn" data-preset="mono"><i class="fas fa-circle-notch"></i> رمادي</button>
             </div>
           </div>
           
+          <!-- مجموعة التحكم في الحجم والتدوير -->
           <div class="control-group">
-            <div class="control-label">
+            <div class="control-header">
+              <i class="fas fa-expand-alt"></i>
+              <span>تحجيم وتدوير</span>
+            </div>
+            <div class="slider-container">
+              <div class="slider-row">
+                <span class="label-icon"><i class="fas fa-search-plus"></i> الحجم</span>
+                <input type="range" id="scaleSlider" min="30" max="150" value="100" step="2">
+                <span class="value-display" id="scaleValue">100%</span>
+              </div>
+              <div class="slider-row">
+                <span class="label-icon"><i class="fas fa-undo-alt"></i> التدوير</span>
+                <input type="range" id="rotateSlider" min="0" max="360" value="0" step="1">
+                <span class="value-display" id="rotateValue">0°</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- مجموعة الخلفية والظل -->
+          <div class="control-group">
+            <div class="control-header">
               <i class="fas fa-desktop"></i>
-              <span>خلفية المعاينة وتأثيرات إضافية</span>
+              <span>خلفية وتأثيرات</span>
             </div>
             <div class="bg-preview-row">
               <div class="bg-color-box" style="background:#ffffff;" data-bg="#ffffff"></div>
@@ -542,39 +598,44 @@
               <div class="bg-color-box" style="background:#b8945e30;" data-bg="#b8945e30"></div>
               <div class="bg-color-box" style="background:#2c3e50;" data-bg="#2c3e50"></div>
               <div class="bg-color-box" style="background:#e6cba0;" data-bg="#e6cba0"></div>
-              <input type="color" id="customPreviewBg" value="#f3efea" style="width:50px; height:50px; border-radius:20px; border:none; cursor:pointer;">
+              <input type="color" id="customPreviewBg" value="#f3efea" style="width:44px; height:44px; border-radius:16px; border:none; cursor:pointer;">
             </div>
-            <div class="advanced-row" style="margin-top: 20px;">
-              <label>
-                <input type="checkbox" id="shadowToggle" checked> <i class="fas fa-cloud-sun"></i> إضافة ظل للشعار
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; margin: 12px 0;">
+              <label style="display: flex; align-items: center; gap: 8px;">
+                <input type="checkbox" id="shadowToggle" checked> <i class="fas fa-cloud-sun"></i> ظل
               </label>
-              <label>
+              <label style="display: flex; align-items: center; gap: 8px;">
                 <input type="checkbox" id="invertToggle"> <i class="fas fa-moon"></i> عكس الألوان
               </label>
             </div>
-            <div class="slider-row" style="margin-top: 12px;">
-              <span><i class="fas fa-eye-dropper"></i> شفافية الخلفية</span>
+            <div class="slider-row">
+              <span class="label-icon"><i class="fas fa-eye-dropper"></i> شفافية الخلفية</span>
               <input type="range" id="bgOpacity" min="0" max="100" value="100" step="1">
               <span class="value-display" id="opacityValue">100%</span>
             </div>
-            <button class="reset-btn" id="fullResetBtn"><i class="fas fa-sync-alt"></i> إعادة ضبط جميع الإعدادات</button>
+          </div>
+
+          <!-- أزرار المزايا الإضافية -->
+          <div class="feature-buttons">
+            <button class="feature-btn" id="savePresetBtn"><i class="fas fa-save"></i> حفظ</button>
+            <button class="feature-btn" id="loadPresetBtn"><i class="fas fa-folder-open"></i> تحميل</button>
+            <button class="feature-btn primary" id="exportPngBtn"><i class="fas fa-download"></i> تصدير PNG</button>
+            <button class="reset-btn" id="fullResetBtn"><i class="fas fa-sync-alt"></i> إعادة الكل</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- MOCKUPS SECTION - عرض عمودي بدون نصوص -->
+  <!-- MOCKUPS عرض عمودي -->
   <section class="mockup-showcase" style="background: #050505; padding: 0;">
-    <div class="fullwidth-mockup">
-      <div class="vertical-mockup-stack" id="verticalMockupStack"></div>
-    </div>
+    <div class="vertical-mockup-stack" id="verticalMockupStack"></div>
   </section>
 </main>
 
 <script>
   (function() {
-    // ========== SCROLL REVEAL ==========
+    // Scroll reveal
     const faders = document.querySelectorAll('.fade-on-scroll');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
@@ -606,7 +667,7 @@
     }
     buildPrimarySelector();
 
-    // ========== BACKGROUND COLOR (logo.png / logodark) ==========
+    // ========== BACKGROUND COLOR ==========
     const previewBox = document.getElementById('colorPreviewBox');
     const previewLogo = document.getElementById('previewLogo');
     const colorBtns = document.querySelectorAll('.color-btn');
@@ -636,32 +697,48 @@
     customPicker.addEventListener('input', e => updateLogoForBg(e.target.value));
     updateLogoForBg('#0f1937');
 
-    // ========== LOGO COLORIZER (logo2.png) ==========
+    // ========== LOGO CUSTOMIZATION ==========
     const colorizableLogo = document.getElementById('colorizableLogo');
     const hueSlider = document.getElementById('hueSlider');
     const satSlider = document.getElementById('satSlider');
     const brightSlider = document.getElementById('brightSlider');
     const contrastSlider = document.getElementById('contrastSlider');
+    const scaleSlider = document.getElementById('scaleSlider');
+    const rotateSlider = document.getElementById('rotateSlider');
+    const shadowToggle = document.getElementById('shadowToggle');
+    const invertToggle = document.getElementById('invertToggle');
+    const bgOpacity = document.getElementById('bgOpacity');
+    const customPreviewBg = document.getElementById('customPreviewBg');
+    const fullResetBtn = document.getElementById('fullResetBtn');
+    const savePresetBtn = document.getElementById('savePresetBtn');
+    const loadPresetBtn = document.getElementById('loadPresetBtn');
+    const exportPngBtn = document.getElementById('exportPngBtn');
+    const colorizerPreviewArea = document.getElementById('colorizerPreviewArea');
+    const bgColorBoxes = document.querySelectorAll('.bg-color-box');
+    
     const hueVal = document.getElementById('hueValue');
     const satVal = document.getElementById('satValue');
     const brightVal = document.getElementById('brightValue');
     const contrastVal = document.getElementById('contrastValue');
-    const shadowToggle = document.getElementById('shadowToggle');
-    const invertToggle = document.getElementById('invertToggle');
-    const bgOpacity = document.getElementById('bgOpacity');
+    const scaleVal = document.getElementById('scaleValue');
+    const rotateVal = document.getElementById('rotateValue');
     const opacityValue = document.getElementById('opacityValue');
-    const colorizerPreviewArea = document.getElementById('colorizerPreviewArea');
-    const customPreviewBg = document.getElementById('customPreviewBg');
-    const fullResetBtn = document.getElementById('fullResetBtn');
-    const bgColorBoxes = document.querySelectorAll('.bg-color-box');
-    
+
+    function updateLogoTransform() {
+      const scale = scaleSlider.value / 100;
+      const rotate = rotateSlider.value;
+      colorizableLogo.style.transform = `scale(${scale}) rotate(${rotate}deg)`;
+      scaleVal.innerText = scaleSlider.value + '%';
+      rotateVal.innerText = rotate + '°';
+    }
+
     function updateLogoFilter() {
       const hue = hueSlider.value;
       const sat = satSlider.value;
       const bright = brightSlider.value;
       const contrast = contrastSlider.value;
       let filter = `hue-rotate(${hue}deg) saturate(${sat}%) brightness(${bright}%) contrast(${contrast}%)`;
-      if (shadowToggle.checked) filter += ` drop-shadow(0 12px 18px rgba(0,0,0,0.25))`;
+      if (shadowToggle.checked) filter += ` drop-shadow(0 10px 15px rgba(0,0,0,0.25))`;
       if (invertToggle.checked) filter += ` invert(1)`;
       colorizableLogo.style.filter = filter;
       hueVal.innerText = hue + '°';
@@ -690,6 +767,8 @@
     satSlider.addEventListener('input', updateLogoFilter);
     brightSlider.addEventListener('input', updateLogoFilter);
     contrastSlider.addEventListener('input', updateLogoFilter);
+    scaleSlider.addEventListener('input', updateLogoTransform);
+    rotateSlider.addEventListener('input', updateLogoTransform);
     shadowToggle.addEventListener('change', updateLogoFilter);
     invertToggle.addEventListener('change', updateLogoFilter);
     bgOpacity.addEventListener('input', updateBackgroundPreview);
@@ -710,87 +789,96 @@
     
     function fullReset() {
       hueSlider.value = 0; satSlider.value = 100; brightSlider.value = 100; contrastSlider.value = 100;
+      scaleSlider.value = 100; rotateSlider.value = 0;
       shadowToggle.checked = true; invertToggle.checked = false;
       bgOpacity.value = 100; customPreviewBg.value = '#f3efea';
-      updateBackgroundPreview();
       updateLogoFilter();
+      updateLogoTransform();
+      updateBackgroundPreview();
       bgColorBoxes.forEach(b => b.style.outline = 'none');
     }
     fullResetBtn.addEventListener('click', fullReset);
     
+    function savePreset() {
+      const preset = {
+        hue: hueSlider.value, sat: satSlider.value, bright: brightSlider.value, contrast: contrastSlider.value,
+        scale: scaleSlider.value, rotate: rotateSlider.value, shadow: shadowToggle.checked, invert: invertToggle.checked,
+        bgColor: customPreviewBg.value, bgOpacity: bgOpacity.value
+      };
+      localStorage.setItem('logoPreset', JSON.stringify(preset));
+      alert('تم حفظ الإعدادات بنجاح');
+    }
+    function loadPreset() {
+      const saved = localStorage.getItem('logoPreset');
+      if(!saved) { alert('لا توجد إعدادات محفوظة'); return; }
+      const preset = JSON.parse(saved);
+      hueSlider.value = preset.hue; satSlider.value = preset.sat; brightSlider.value = preset.bright; contrastSlider.value = preset.contrast;
+      scaleSlider.value = preset.scale; rotateSlider.value = preset.rotate;
+      shadowToggle.checked = preset.shadow; invertToggle.checked = preset.invert;
+      customPreviewBg.value = preset.bgColor; bgOpacity.value = preset.bgOpacity;
+      updateLogoFilter(); updateLogoTransform(); updateBackgroundPreview();
+      alert('تم تحميل الإعدادات');
+    }
+    savePresetBtn.addEventListener('click', savePreset);
+    loadPresetBtn.addEventListener('click', loadPreset);
+    
+    async function exportAsPNG() {
+      const element = colorizerPreviewArea;
+      if(!element) return;
+      try {
+        const canvas = await html2canvas(element, { scale: 2, backgroundColor: null, useCORS: true });
+        const link = document.createElement('a');
+        link.download = 'custom-logo.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch(err) { alert('خطأ في التصدير'); }
+    }
+    exportPngBtn.addEventListener('click', exportAsPNG);
+    
     const presetBtns = document.querySelectorAll('.preset-btn');
     presetBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const preset = btn.dataset.preset;
-        if(preset === 'reset') {
-          hueSlider.value = 0; satSlider.value = 100; brightSlider.value = 100; contrastSlider.value = 100;
-          shadowToggle.checked = true; invertToggle.checked = false;
-          updateLogoFilter();
-        } else if(preset === 'gold') { hueSlider.value = 45; satSlider.value = 145; brightSlider.value = 112; contrastSlider.value = 105; updateLogoFilter(); }
-        else if(preset === 'blue') { hueSlider.value = 210; satSlider.value = 150; brightSlider.value = 105; contrastSlider.value = 100; updateLogoFilter(); }
-        else if(preset === 'crimson') { hueSlider.value = 350; satSlider.value = 160; brightSlider.value = 95; contrastSlider.value = 108; updateLogoFilter(); }
-        else if(preset === 'green') { hueSlider.value = 135; satSlider.value = 140; brightSlider.value = 100; contrastSlider.value = 102; updateLogoFilter(); }
-        else if(preset === 'purple') { hueSlider.value = 270; satSlider.value = 145; brightSlider.value = 105; contrastSlider.value = 100; updateLogoFilter(); }
-        else if(preset === 'mono') { hueSlider.value = 0; satSlider.value = 0; brightSlider.value = 100; contrastSlider.value = 100; updateLogoFilter(); }
+      btn.addEventListener('click', () => {
+        const p = btn.dataset.preset;
+        if(p === 'reset') { hueSlider.value = 0; satSlider.value = 100; brightSlider.value = 100; contrastSlider.value = 100; updateLogoFilter(); }
+        else if(p === 'gold') { hueSlider.value = 45; satSlider.value = 145; brightSlider.value = 112; contrastSlider.value = 105; updateLogoFilter(); }
+        else if(p === 'blue') { hueSlider.value = 210; satSlider.value = 150; brightSlider.value = 105; contrastSlider.value = 100; updateLogoFilter(); }
+        else if(p === 'crimson') { hueSlider.value = 350; satSlider.value = 160; brightSlider.value = 95; contrastSlider.value = 108; updateLogoFilter(); }
+        else if(p === 'green') { hueSlider.value = 135; satSlider.value = 140; brightSlider.value = 100; contrastSlider.value = 102; updateLogoFilter(); }
+        else if(p === 'purple') { hueSlider.value = 270; satSlider.value = 145; brightSlider.value = 105; contrastSlider.value = 100; updateLogoFilter(); }
+        else if(p === 'mono') { hueSlider.value = 0; satSlider.value = 0; brightSlider.value = 100; contrastSlider.value = 100; updateLogoFilter(); }
       });
     });
+    
     colorizableLogo.src = 'logo2.png';
-    colorizableLogo.onerror = function() { this.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='450' height='160' viewBox='0 0 450 160'%3E%3Crect width='450' height='160' fill='%23cfc3b0'/%3E%3Ctext x='225' y='90' text-anchor='middle' fill='%233d2b1a' font-size='32'%3Elogo2.png%3C/text%3E%3C/svg%3E`; };
-    updateBackgroundPreview();
-    updateLogoFilter();
+    colorizableLogo.onerror = function() { this.src = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='150' viewBox='0 0 400 150'%3E%3Crect width='400' height='150' fill='%23cfc3b0'/%3E%3Ctext x='200' y='85' text-anchor='middle' fill='%233d2b1a' font-size='26'%3Eالشعار%3C/text%3E%3C/svg%3E`; };
+    updateLogoFilter(); updateLogoTransform(); updateBackgroundPreview();
 
-    // ========== MOCKUPS - عرض عمودي بدون نصوص ==========
+    // ========== MOCKUPS VERTICAL ==========
     const mockupContainer = document.getElementById('verticalMockupStack');
     const mockupFiles = ['bs1.jpg', 'bs2.jpg', 'bs3.jpg', 'bs4.jpg', 'bs5.jpg', 'bs6.jpg'];
-    
     function buildVerticalMockups() {
       mockupContainer.innerHTML = '';
-      mockupFiles.forEach((file) => {
-        const mockupDiv = document.createElement('div');
-        mockupDiv.className = 'mockup-hero-item';
+      mockupFiles.forEach(file => {
+        const div = document.createElement('div');
+        div.className = 'mockup-hero-item';
         const img = document.createElement('img');
         img.src = file;
-        img.alt = 'Mockup احترافي';
+        img.alt = 'Mockup';
         img.loading = 'lazy';
-        img.onerror = function() {
-          this.src = `data:image/svg+xml,%3Csvg width='800' height='900' viewBox='0 0 800 900'%3E%3Crect width='800' height='900' fill='%232b241c'/%3E%3Ctext x='400' y='450' text-anchor='middle' fill='%23b8945e' font-size='28'%3E${file}%3C/text%3E%3C/svg%3E`;
-        };
-        mockupDiv.appendChild(img);
-        mockupContainer.appendChild(mockupDiv);
+        img.onerror = function() { this.src = `data:image/svg+xml,%3Csvg width='800' height='900' viewBox='0 0 800 900'%3E%3Crect width='800' height='900' fill='%232b241c'/%3E%3Ctext x='400' y='450' text-anchor='middle' fill='%23b8945e' font-size='28'%3E${file}%3C/text%3E%3C/svg%3E`; };
+        div.appendChild(img);
+        mockupContainer.appendChild(div);
       });
-      
-      const mockupItems = document.querySelectorAll('.mockup-hero-item');
-      const mockupObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible-mockup');
-            setTimeout(() => { entry.target.classList.add('reveal'); }, 200);
-          } else {
-            entry.target.classList.remove('reveal');
-          }
-        });
-      }, { threshold: 0.2, rootMargin: "0px 0px -30px 0px" });
-      
-      mockupItems.forEach(item => mockupObserver.observe(item));
-      setTimeout(() => {
-        mockupItems.forEach(item => {
-          const rect = item.getBoundingClientRect();
-          if(rect.top < window.innerHeight - 80) item.classList.add('visible-mockup');
-        });
-      }, 200);
+      const items = document.querySelectorAll('.mockup-hero-item');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('visible-mockup'); setTimeout(() => e.target.classList.add('reveal'), 200); } else { e.target.classList.remove('reveal'); } });
+      }, { threshold: 0.2 });
+      items.forEach(i => obs.observe(i));
+      setTimeout(() => { items.forEach(i => { if(i.getBoundingClientRect().top < window.innerHeight-80) i.classList.add('visible-mockup'); }); }, 200);
     }
-    
     buildVerticalMockups();
-    
-    // تأثير parallax خفيف
     window.addEventListener('scroll', () => {
-      const mockups = document.querySelectorAll('.mockup-hero-item');
-      mockups.forEach(m => {
-        const yPos = window.scrollY * 0.05;
-        if(m.querySelector('img')) {
-          m.querySelector('img').style.transform = `translateY(${yPos * 0.05}px)`;
-        }
-      });
+      document.querySelectorAll('.mockup-hero-item').forEach(m => { if(m.querySelector('img')) m.querySelector('img').style.transform = `translateY(${window.scrollY * 0.03}px)`; });
     });
   })();
 </script>
