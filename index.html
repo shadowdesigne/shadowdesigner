@@ -13,8 +13,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- html2canvas لتصدير الصور -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <style>
     * {
       margin: 0;
@@ -188,7 +186,7 @@
       margin-top: 10px;
     }
 
-    /* قسم تخصيص الشعار الرئيسي (محسن للجوال) */
+    /* قسم تخصيص الشعار الرئيسي */
     .logo-colorizer {
       background: #ffffff;
       border-radius: 40px;
@@ -223,7 +221,6 @@
       gap: 24px;
     }
 
-    /* تبويبات منسدلة أو مجموعات منظمة */
     .control-group {
       background: #faf7f2;
       border-radius: 28px;
@@ -289,7 +286,6 @@
       font-size: 0.75rem;
     }
 
-    /* أزرار الألوان الجاهزة */
     .preset-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -321,7 +317,6 @@
       transform: translateY(-1px);
     }
 
-    /* خلفيات المعاينة */
     .bg-preview-row {
       display: flex;
       flex-wrap: wrap;
@@ -339,7 +334,6 @@
       cursor: pointer;
     }
 
-    /* أزرار المزايا */
     .feature-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -370,11 +364,6 @@
       background: #b8945e;
       color: white;
       transform: translateY(-2px);
-    }
-
-    .feature-btn.primary {
-      background: #b8945e;
-      color: white;
     }
 
     .reset-btn {
@@ -516,13 +505,13 @@
     </div>
   </section>
 
-  <!-- تخصيص الشعار (بدون كلمة logo2.png في العنوان) -->
+  <!-- تخصيص الشعار (بدون أي عبارة logo2.png) -->
   <section>
     <div class="container">
       <h2 class="section-title fade-on-scroll"><i class="fas fa-palette" style="margin-left: 8px;"></i> تخصيص الألوان والتأثيرات</h2>
       <div class="logo-colorizer fade-on-scroll">
         <div class="colorizer-preview" id="colorizerPreviewArea">
-          <img src="logo2.png" alt="شعار قابل للتخصيص" class="dynamic-logo" id="colorizableLogo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'150\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%23d9cdbc\'/%3E%3Ctext x=\'200\' y=\'85\' text-anchor=\'middle\' fill=\'%233d2b1a\' font-size=\'28\'%3Eالشعار%3C/text%3E%3C/svg%3E'">
+          <img src="logo2.png" alt="شعار قابل للتخصيص" class="dynamic-logo" id="colorizableLogo" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'150\' viewBox=\'0 0 400 150\'%3E%3Crect width=\'400\' height=\'150\' fill=\'%23d9cdbc\'/%3E%3Ctext x=\'200\' y=\'85\' text-anchor=\'middle\' fill=\'%233d2b1a\' font-size=\'26\'%3Eالشعار%3C/text%3E%3C/svg%3E'">
         </div>
         
         <div class="controls-panel">
@@ -615,11 +604,9 @@
             </div>
           </div>
 
-          <!-- أزرار المزايا الإضافية -->
+          <!-- أزرار المزايا (حذف التصدير والتحميل نهائياً) -->
           <div class="feature-buttons">
-            <button class="feature-btn" id="savePresetBtn"><i class="fas fa-save"></i> حفظ</button>
-            <button class="feature-btn" id="loadPresetBtn"><i class="fas fa-folder-open"></i> تحميل</button>
-            <button class="feature-btn primary" id="exportPngBtn"><i class="fas fa-download"></i> تصدير PNG</button>
+            <button class="feature-btn" id="savePresetBtn"><i class="fas fa-save"></i> حفظ الإعدادات</button>
             <button class="reset-btn" id="fullResetBtn"><i class="fas fa-sync-alt"></i> إعادة الكل</button>
           </div>
         </div>
@@ -697,7 +684,7 @@
     customPicker.addEventListener('input', e => updateLogoForBg(e.target.value));
     updateLogoForBg('#0f1937');
 
-    // ========== LOGO CUSTOMIZATION ==========
+    // ========== LOGO CUSTOMIZATION (بدون تصدير وتحميل) ==========
     const colorizableLogo = document.getElementById('colorizableLogo');
     const hueSlider = document.getElementById('hueSlider');
     const satSlider = document.getElementById('satSlider');
@@ -711,8 +698,6 @@
     const customPreviewBg = document.getElementById('customPreviewBg');
     const fullResetBtn = document.getElementById('fullResetBtn');
     const savePresetBtn = document.getElementById('savePresetBtn');
-    const loadPresetBtn = document.getElementById('loadPresetBtn');
-    const exportPngBtn = document.getElementById('exportPngBtn');
     const colorizerPreviewArea = document.getElementById('colorizerPreviewArea');
     const bgColorBoxes = document.querySelectorAll('.bg-color-box');
     
@@ -808,33 +793,9 @@
       localStorage.setItem('logoPreset', JSON.stringify(preset));
       alert('تم حفظ الإعدادات بنجاح');
     }
-    function loadPreset() {
-      const saved = localStorage.getItem('logoPreset');
-      if(!saved) { alert('لا توجد إعدادات محفوظة'); return; }
-      const preset = JSON.parse(saved);
-      hueSlider.value = preset.hue; satSlider.value = preset.sat; brightSlider.value = preset.bright; contrastSlider.value = preset.contrast;
-      scaleSlider.value = preset.scale; rotateSlider.value = preset.rotate;
-      shadowToggle.checked = preset.shadow; invertToggle.checked = preset.invert;
-      customPreviewBg.value = preset.bgColor; bgOpacity.value = preset.bgOpacity;
-      updateLogoFilter(); updateLogoTransform(); updateBackgroundPreview();
-      alert('تم تحميل الإعدادات');
-    }
     savePresetBtn.addEventListener('click', savePreset);
-    loadPresetBtn.addEventListener('click', loadPreset);
     
-    async function exportAsPNG() {
-      const element = colorizerPreviewArea;
-      if(!element) return;
-      try {
-        const canvas = await html2canvas(element, { scale: 2, backgroundColor: null, useCORS: true });
-        const link = document.createElement('a');
-        link.download = 'custom-logo.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
-      } catch(err) { alert('خطأ في التصدير'); }
-    }
-    exportPngBtn.addEventListener('click', exportAsPNG);
-    
+    // بريسيتات الألوان
     const presetBtns = document.querySelectorAll('.preset-btn');
     presetBtns.forEach(btn => {
       btn.addEventListener('click', () => {
